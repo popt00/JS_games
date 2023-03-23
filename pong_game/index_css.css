@@ -1,0 +1,17 @@
+.div{
+    display:inline;
+    text-align: center;
+}
+#mytitle {
+    text-align: center;
+    color: rgb(90, 12, 12);
+}
+#gamezone{
+    border: solid 3px black;
+    padding: 10px;
+    
+}
+.blank_s{
+    border: solid 1px black;
+    margin: 1px;
+}
