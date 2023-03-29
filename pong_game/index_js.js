@@ -18,7 +18,7 @@ var angle = Math.random()*Math.PI*2;
 var score_left=0;
 var score_right=0;
 var scorezone_ele;
-const max_score=6;
+const max_score=5;
 
 function play(){
     var ns = 'http://www.w3.org/2000/svg'
@@ -104,7 +104,7 @@ function ball_rolling(){
                 }
                 else{
                     let gamezone_ele = document.getElementById("gamezone");
-                    gamezone_ele.innerHTML="";
+                    gamezone_ele.innerHTML="Right Won";
                     clearInterval(ball_roll);
                 }
             }
@@ -125,7 +125,7 @@ function ball_rolling(){
                 }
                 else{
                     let gamezone_ele = document.getElementById("gamezone");
-                    gamezone_ele.innerHTML="";
+                    gamezone_ele.innerHTML="Left Won";
                     clearInterval(ball_roll);
                 }
             }
