@@ -1,1 +1,1 @@
-just pong game with js
+just pong game with js.
