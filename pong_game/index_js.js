@@ -1,48 +1,68 @@
-var right_x=390,right_y=75;
-var left_x=0,left_y=75;
 
+const MAX_SCORE=3;
+const GAME_WIDTH= 400, GAME_HEIGHT = 200;
+const RECTANGLE_HEIGHT=100, RECTANGLE_WIDTH=10;
+const START_POSITION =50;
+
+var right_x,right_y;
+var left_x,left_y;
 var right_ele;
 var left_ele;
 var ball_ele;
 
-const game_width= 400, game_height = 200;
-const rect_hei=100, rect_wid=10;
 const sensitivity_y=5;
 
 const ball_radius= 5;
-const ini_ball_x= game_width/2, ini_ball_y= game_height/2;
-var ball_x=game_width/2, ball_y= game_height/2;
-var ball_speed=10;
+const ini_ball_x= GAME_WIDTH/2, ini_ball_y= GAME_HEIGHT/2;
+var ball_x, ball_y;
+var ball_speed;
 var angle = Math.random()*Math.PI*2;
 
-var score_left=0;
-var score_right=0;
+var score_left;
+var score_right;
 var scorezone_ele;
-const max_score=5;
+var ball_roll ;
+function resetGame(){
 
+    right_x=GAME_WIDTH-RECTANGLE_WIDTH;
+    right_y=START_POSITION;
+    left_x=0;
+    left_y=START_POSITION;
+    ball_speed=10;
+    score_left=0;
+    score_right=0;
+    ball_x=ini_ball_x;
+    ball_y=ini_ball_y;
+    clearInterval(ball_roll);
+}
+
+var buttonName = "<img src='src/restart.jpg' id='playButton' onClick=\"play()\" >"
+{/* <img src="src/play.jpg" id="playButton" onclick="play()" width="100px"> */}
 function play(){
     var ns = 'http://www.w3.org/2000/svg'
     console.log("he");
+    resetGame();
     let gamezone_ele = document.getElementById("gamezone");
     gamezone_ele.innerHTML="";
+    document.getElementById("play_button_div").innerHTML="";
 
     let svg_ele = document.createElementNS(ns,'svg');
-    svg_ele.setAttributeNS(null, 'width', game_width);
-    svg_ele.setAttributeNS(null, 'height', game_height);
+    svg_ele.setAttributeNS(null, 'width', GAME_WIDTH);
+    svg_ele.setAttributeNS(null, 'height', GAME_HEIGHT);
     svg_ele.setAttributeNS(null,'fill','cyan');
     gamezone_ele.appendChild(svg_ele);
 
     right_ele = document.createElementNS(ns,'rect');
-    right_ele.setAttributeNS(null, 'width', rect_wid);
-    right_ele.setAttributeNS(null, 'height', rect_hei);
+    right_ele.setAttributeNS(null, 'width', RECTANGLE_WIDTH);
+    right_ele.setAttributeNS(null, 'height', RECTANGLE_HEIGHT);
     right_ele.style.x=right_x;
     right_ele.style.y=right_y;
     right_ele.style.fill="red";
     svg_ele.appendChild(right_ele);
 
     left_ele = document.createElementNS(ns,'rect');
-    left_ele.setAttributeNS(null, 'width', rect_wid);
-    left_ele.setAttributeNS(null, 'height', rect_hei);
+    left_ele.setAttributeNS(null, 'width', RECTANGLE_WIDTH);
+    left_ele.setAttributeNS(null, 'height', RECTANGLE_HEIGHT);
     left_ele.style.x=left_x;
     left_ele.style.y=left_y;
     left_ele.style.fill="red";
@@ -57,14 +77,18 @@ function play(){
 
     // gamezone_ele.style.width="400px";
     // gamezone_ele.style.height="200px";
-    gamezone_ele.style.border= "solid 3px black";
+    // gamezone_ele.style.border= "solid 3px black";
     scoreupdate();
     ball_rolling();
 }
 
 function scoreupdate(){
     scorezone_ele= document.getElementById("scorezone");
-    scorezone_ele.innerHTML= "Player Left : "+ score_left+"_________________________________"+ "Player Right : "+ score_right+" <br>";
+    scorezone_ele.innerHTML= "<table>"
+                    +"<tr><td>Left PLayer:</td><td>Right Player:</td></tr>"
+                    +"<tr><td>"+score_left+"</td><td>"+score_right+"</td></tr>"
+                    +"</table>";
+    // scorezone_ele.innerHTML= "Player Left : "+ score_left+"____________________________"+ "Player Right : "+ score_right+" <br>";
 }
 function new_angle(){
     let p_angle= Math.random()*Math.PI*2;
@@ -79,7 +103,7 @@ function ball_rolling(){
     var interval_speed = 60;
     let start_time= new Date().getTime();
     let difference=0;
-    var ball_roll = setInterval(function(){
+    ball_roll= setInterval(function(){
         difference = (new Date().getTime() - start_time)/10000;
         console.log(difference);
         ball_x= ball_x+ ball_speed*Math.cos(angle)*(1+difference);
@@ -88,15 +112,15 @@ function ball_rolling(){
             angle= 0-angle;
             ball_y= 0-ball_y;
         }
-        if(ball_y>game_height){
+        if(ball_y>GAME_HEIGHT){
             angle= 0-angle;
-            ball_y= 2*game_height-ball_y;
+            ball_y= 2*GAME_HEIGHT-ball_y;
         }
-        if(ball_x<rect_wid){
-            if(ball_y<left_y || ball_y>left_y+rect_hei){
+        if(ball_x<RECTANGLE_WIDTH){
+            if(ball_y<left_y || ball_y>left_y+RECTANGLE_HEIGHT){
                 score_right++;
                 scoreupdate();
-                if(score_right<max_score && score_left<max_score){
+                if(score_right<MAX_SCORE && score_left<MAX_SCORE){
                     ball_x=ini_ball_x;
                     ball_y=ini_ball_y;
                     angle= new_angle();
@@ -104,7 +128,7 @@ function ball_rolling(){
                 }
                 else{
                     let gamezone_ele = document.getElementById("gamezone");
-                    gamezone_ele.innerHTML="Right Won";
+                    gamezone_ele.innerHTML="<h2>Right Side <br> Won</h2>"+buttonName;
                     clearInterval(ball_roll);
                 }
             }
@@ -114,10 +138,10 @@ function ball_rolling(){
             }
         }
         if(ball_x>right_x){
-            if( ball_y<right_y || ball_y>right_y+rect_hei){
+            if( ball_y<right_y || ball_y>right_y+RECTANGLE_HEIGHT){
                 score_left++;
                 scoreupdate();
-                if(score_right<max_score && score_left<max_score){
+                if(score_right<MAX_SCORE && score_left<MAX_SCORE){
                     ball_x=ini_ball_x;
                     ball_y=ini_ball_y;
                     angle= new_angle();
@@ -125,13 +149,13 @@ function ball_rolling(){
                 }
                 else{
                     let gamezone_ele = document.getElementById("gamezone");
-                    gamezone_ele.innerHTML="Left Won";
+                    gamezone_ele.innerHTML="<h2>Left Side <br> Won</h2>"+buttonName;
                     clearInterval(ball_roll);
                 }
             }
             else{
                 angle= Math.PI-angle;
-                ball_x= 2*game_width-ball_x;
+                ball_x= 2*GAME_WIDTH-ball_x;
             }
         }
         ball_ele.style.cx=ball_x;
@@ -207,7 +231,7 @@ function l_down(){
             clearInterval(interval_id);
         }
         left_y+=sensitivity_y;
-        left_y=Math.min(left_y,game_height-rect_hei);
+        left_y=Math.min(left_y,GAME_HEIGHT-RECTANGLE_HEIGHT);
         left_ele.style.y=left_y;
     },60);
 }
@@ -227,7 +251,7 @@ function r_down(){
             clearInterval(interval_id);
         }
         right_y+=sensitivity_y;
-        right_y=Math.min(right_y,game_height-rect_hei);
+        right_y=Math.min(right_y,GAME_HEIGHT-RECTANGLE_HEIGHT);
         right_ele.style.y = right_y;
     },60);
     
