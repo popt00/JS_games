@@ -9,14 +9,46 @@
     <script src="index_js.js"></script>
 </head>
 <body>
-    <div>
-        <h1>
-            Let us Dual
-        </h1>
-    </div>
-    <div  id="scorezone"></div>
-    <div  id="gamezone">
-        <img src="src/play.jpg" onclick="play()" width="100px">
-    </div>
+    <div class="main_body">
+        <div class="heading">
+            <h1>
+                Let us Dual
+            </h1>
+            <h3>
+                Max Score 3
+            </h3>
+        </div>
+        <div class="gamezone_outer">
+            <div id="play_button_div">
+                <img src="src/play.jpg" id="playButton" onclick="play()" width="100px">
+            </div>
+
+        <div  id="scorezone"></div>
+            <div  id="gamezone"> 
+                <p>
+                    Let us have fair fight
+                </p>
+                <table>
+                    <tr>
+                        <td>
+                            Left Player:
+                        </td>
+                        <td>
+                            Right Player:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br> press w for up
+                            <br>&<br> s for down</td>
+                        <td>
+                        <br> press ↑ for up 
+                        <br>&<br> ↓ for down
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>    
 </body>
 </html>
