@@ -1,17 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    background-color: #f8e5fe; 
+    justify-content: center;
+    align-items: center; 
+    zoom: 200%;
+}
+
 .div{
     display:inline;
     text-align: center;
 }
-#mytitle {
+.heading{
     text-align: center;
+    border: 1px solid purple;
+    width: 410px;
+    padding: 5px;
+
     color: rgb(90, 12, 12);
 }
 #gamezone{
-    border: solid 3px black;
+    border: solid 1px rgb(190, 40, 173);
     padding: 10px;
-    
+    width: 400px;
+    height: 200px;
+    align-items: center;
+}
+h2 {
+    color: rgb(72, 10, 10);
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    padding: 5px;
+}
+#scorezone{
+    padding: 5px;
 }
 .blank_s{
     border: solid 1px black;
     margin: 1px;
+}
+table{
+    width: 390px;
+    text-align: center;
+    padding: 5px;
+}
+p{
+    text-align: center;
+}
+.main_body{
+  margin: auto;
+  width: 420px;
+  height: 420px;
+  padding: 10px;
+}
+.gamezone_outer{
+    text-align: center;
+}
+#playButton{
+    margin: 10px;
+    height: 50px;
+    width: 50px;
 }
